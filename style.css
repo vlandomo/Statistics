@@ -1,0 +1,54 @@
+*{
+  font-family: Arial, sans-serif;
+  outline: none;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  box-sizing: border-box;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+*:focus {
+  outline: none;
+} 
+
+:root {
+    --main_clr: rgb(92, 91, 91);
+    --title_clr: rgb(0, 0, 0);
+}
+
+body {
+    padding: 15px;
+    background-color: var(--main_clr);
+}
+
+h1, h2 {
+    color: var(--title_clr);
+}
+
+textarea, input, button {
+    display: block;
+    margin: 10px 0;
+    padding: 8px;
+    width: 100%;
+    max-width: 400px;
+    resize: none;
+}
+
+table {
+    width: 100%;
+    max-width: 600px;
+    border-collapse: collapse;
+    background: white;
+}
+
+th, td {
+    border: 1px solid #000;
+    padding: 8px;
+    text-align: center;
+}
+
+canvas {
+    max-width: 600px;
+    margin-top: 20px;
+}
