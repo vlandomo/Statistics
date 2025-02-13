@@ -18,7 +18,7 @@ let histogramChart = null;
         let max = Math.max(...data);
         let range = max - min;
         let classWidth = Math.ceil(range / classCount);
-
+        
         document.getElementById("minValue").innerText = min;
         document.getElementById("maxValue").innerText = max;
         document.getElementById("rangeValue").innerText = range;

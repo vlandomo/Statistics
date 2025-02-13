@@ -1,4 +1,4 @@
-*{
+* {
   font-family: Arial, sans-serif;
   outline: none;
   margin: 0;
@@ -10,45 +10,99 @@
 }
 *:focus {
   outline: none;
-} 
+}
 
 :root {
-    --main_clr: rgb(92, 91, 91);
-    --title_clr: rgb(0, 0, 0);
+  --main_clr: rgb(92, 91, 91);
+  --title_clr: rgb(0, 0, 0);
 }
 
 body {
-    padding: 15px;
-    background-color: var(--main_clr);
+  background-color: var(--main_clr);
 }
 
-h1, h2 {
-    color: var(--title_clr);
+h1,
+h2 {
+  color: var(--title_clr);
+}
+/* header */
+header {
+  display: flex;
+  justify-content: center;
+}
+header h1 {
+  color: var(--title_clr);
+}
+textarea,
+input,
+button {
+  display: block;
+  margin: 10px 0;
+  padding: 8px;
+  width: 100%;
+  max-width: 400px;
+  resize: none;
+}
+main {
+  display: flex;
+  padding: 15px;
+  gap: 10px;
+  width: 100%;
+  justify-content: center;
+}
+main .data_row {
+  padding: 15px;
+  width: 30%;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  background-color: aqua;
+}
+main .dataTable {
+  padding: 15px;
+  width: 30%;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  background-color: aqua;
+}
+main .lessThanTable {
+  padding: 15px;
+  width: 30%;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  background-color: aqua;
+}
+main .data_row .viewStats {
+  width: 100%;
+  max-width: 600px;
+  border-collapse: collapse;
+  background: white;
 }
 
-textarea, input, button {
-    display: block;
-    margin: 10px 0;
-    padding: 8px;
-    width: 100%;
-    max-width: 400px;
-    resize: none;
+th,
+td {
+  border: 1px solid #000;
+  padding: 8px;
+  text-align: center;
 }
 
-table {
-    width: 100%;
-    max-width: 600px;
-    border-collapse: collapse;
-    background: white;
+main .dataTable {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 10px;
 }
-
-th, td {
-    border: 1px solid #000;
-    padding: 8px;
-    text-align: center;
+main .dataTable table {
+  width: 265px;
+  border-collapse: collapse;
+  background: white;
+  height: 500px;
+  overflow: auto;
 }
-
 canvas {
-    max-width: 600px;
-    margin-top: 20px;
+  max-width: 600px;
+  margin-top: 20px;
+  /* visibility: visible; */
 }

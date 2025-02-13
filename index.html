@@ -8,89 +8,94 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <!-- header -->
     <header>
       <h1>مرحباً بك، هذا الموقع مختص في تحليل البيانات الإحصائية</h1>
     </header>
-    <section class="enterData">
-      <label for="inputData">أدخل البيانات كأرقام مفصولة بمسافة</label>
-      <textarea
-        id="inputData"
-        rows="3"
-        placeholder="أدخل البيانات كأرقام مفصولة بمسافة"
-      ></textarea>
+    <!-- main sction -->
+    <main>
+      <section class="data_row">
+        <div class="enterData">
+          <label for="inputData">أدخل البيانات كأرقام مفصولة بمسافة</label>
+          <textarea
+            id="inputData"
+            rows="3"
+            placeholder="أدخل البيانات كأرقام مفصولة بمسافة"
+          ></textarea>
 
-      <label for="classCount">عدد الفئات</label>
-      <input type="number" id="classCount" />
+          <label for="classCount">عدد الفئات</label>
+          <input type="number" id="classCount" />
 
-      <button onclick="processData()">تحليل</button>
-    </section>
+          <button onclick="processData()">تحليل</button>
+        </div>
 
-    <!-- View Stats -->
-    <table>
-      <thead>
-        <tr>
-          <th>إظهار</th>
-          <th>القيمة</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>أقل قيمة</td>
-          <td id="minValue"></td>
-        </tr>
-        <tr>
-          <td>أعلى قيمة</td>
-          <td id="maxValue"></td>
-        </tr>
-        <tr>
-          <td>النطاق</td>
-          <td id="rangeValue"></td>
-        </tr>
-        <tr>
-          <td>عرض الفئات</td>
-          <td>
-            <span id="classWidthEquation"></span> ≈
-            <span id="classWidthValue"></span>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+        <!-- View Stats -->
+        <table class="viewStats">
+          <thead>
+            <tr>
+              <th>إظهار</th>
+              <th>القيمة</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>أقل قيمة</td>
+              <td id="minValue"></td>
+            </tr>
+            <tr>
+              <td>أعلى قيمة</td>
+              <td id="maxValue"></td>
+            </tr>
+            <tr>
+              <td>النطاق</td>
+              <td id="rangeValue"></td>
+            </tr>
+            <tr>
+              <td>عرض الفئات</td>
+              <td>
+                <span id="classWidthEquation"></span> ≈
+                <span id="classWidthValue"></span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
 
-    <!-- Data Table -->
-    <section class="dataTable">
-      <h2>الجدول التكراري:</h2>
-      <table id="dataTable" border="1">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>الحد الأدنى</th>
-            <th>الحد الأقصى</th>
-            <th>العلامة</th>
-            <th>التكرار</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </section>
-
-    <!-- Less Than Table -->
-    <section class="lessThanTable">
-      <h2>المخططات البيانية:</h2>
-      <canvas id="histogramChart"></canvas>
-
-      <h2>الجدول التراكمي (أقل من):</h2>
-      <table id="lessThanTable" border="1">
-        <thead>
-          <tr>
-            <th>أقل من</th>
-            <th>التكرار</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-      <canvas id="cumulativeChart"></canvas>
-    </section>
-
+      <!-- Data Table -->
+        <section class="dataTable">
+          <h2>الجدول التكراري:</h2>
+          <table id="dataTable" border="1">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>الحد الأدنى</th>
+                <th>الحد الأقصى</th>
+                <th>العلامة</th>
+                <th>التكرار</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+          <h2>المخططات البيانية:</h2>
+          <canvas id="histogramChart"></canvas>
+        </section>
+  
+        <!-- Less Than Table -->
+        <section class="lessThanTable">
+          <h2>الجدول التراكمي (أقل من):</h2>
+          <table id="lessThanTable" border="1">
+            <thead>
+              <tr>
+                <th>أقل من</th>
+                <th>التكرار</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+          <canvas id="cumulativeChart"></canvas>
+        </section>
+      
+    </main>
     <script src="script.js"></script>
   </body>
 </html>
