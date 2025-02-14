@@ -13,8 +13,13 @@
 }
 
 :root {
-  --main_clr: rgb(92, 91, 91);
+  --main_clr: rgb(196, 233, 231);
   --title_clr: rgb(0, 0, 0);
+  --socand_clr: #ffffff;
+  --table_clr: #ffffff;
+  --header_clr: #94d1d1;
+  --active_clr: #579494;
+  --border_clr: #fff;
 }
 
 body {
@@ -29,80 +34,229 @@ h2 {
 header {
   display: flex;
   justify-content: center;
+  padding: 5px 0;
+  background-color: var(--header_clr);
+  /* box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); */
 }
 header h1 {
-  color: var(--title_clr);
+  color: var(--socand_clr);
+  font-size: 1.2rem;
+  font-weight: 600;
 }
-textarea,
-input,
+
+
+textarea {
+  height: 165px;
+  display: block;
+  margin: 10px 0;
+  padding: 8px;
+  width: 100%;
+  resize: none;
+  border-radius: 7px;
+  border: 2px solid var(--header_clr);
+  font-size: 1.1rem;
+}
+textarea::-webkit-scrollbar {
+  overflow: hidden;
+}
+input {
+  display: block;
+  margin: 10px 0;
+  padding: 8px;
+  width: 100%;
+  border-radius: 7px;
+  border: 2px solid var(--header_clr);
+  font-size: 1rem;
+}
+
 button {
   display: block;
   margin: 10px 0;
   padding: 8px;
   width: 100%;
-  max-width: 400px;
   resize: none;
+  border-radius: 7px;
+  cursor: pointer;
+  border: none;
+  background-color: var(--header_clr);
+  color: var(--socand_clr);
 }
+button:active {
+  background-color: var(--active_clr);
+}
+
+
+
+th {
+  background-color: var(--active_clr);
+  color: var(--socand_clr);
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+tr {
+  background-color: var(--header_clr);
+  color: var(--socand_clr);
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+/* main */
 main {
   display: flex;
-  padding: 15px;
+  padding: 10px 15px;
   gap: 10px;
   width: 100%;
   justify-content: center;
 }
-main .data_row {
-  padding: 15px;
-  width: 30%;
-  border: 1px solid #ddd;
-  border-radius: 15px;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-  background-color: aqua;
-}
-main .dataTable {
-  padding: 15px;
-  width: 30%;
-  border: 1px solid #ddd;
-  border-radius: 15px;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-  background-color: aqua;
-}
-main .lessThanTable {
-  padding: 15px;
-  width: 30%;
-  border: 1px solid #ddd;
-  border-radius: 15px;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-  background-color: aqua;
-}
-main .data_row .viewStats {
-  width: 100%;
-  max-width: 600px;
-  border-collapse: collapse;
-  background: white;
-}
 
-th,
-td {
-  border: 1px solid #000;
-  padding: 8px;
-  text-align: center;
-}
-
-main .dataTable {
+/* data table */
+main .data_row,
+.dataTable,
+.lessThanTable {
   display: flex;
   flex-direction: column;
   text-align: center;
   gap: 10px;
+  padding: 15px;
+  width: 33%;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  background-color: #e9f1f1;
 }
-main .dataTable table {
-  width: 265px;
-  border-collapse: collapse;
-  background: white;
-  height: 500px;
+main h2 {
+  font-size: 1.2rem;
+  color: var(--title_clr);
+}
+/* 1 */
+main .data_row .viewStats {
+  table-layout: fixed;
+  width: 100%;
+  max-height: 220px; /* يمكنك تعديله حسب الحاجة */
   overflow: auto;
+  display: block;
+  border-collapse: collapse; /* دمج حدود الخلايا */
+  border-spacing: 0;
 }
-canvas {
+
+main .data_row .viewStats::-webkit-scrollbar {
+  overflow: hidden;
+}
+
+main .data_row .viewStats th,
+td {
+  width: 100%;
+  border: 1px solid var(--border_clr);
+  padding: 5px;
+  text-align: center;
+  word-wrap: break-word;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* 2 */
+main .dataTable table {
+  table-layout: fixed;
+  width: 100%;
+  max-height: 250px; /* يمكنك تعديله حسب الحاجة */
+  overflow: auto;
+  display: block;
+  border-collapse: collapse; /* دمج حدود الخلايا */
+  border-spacing: 0;
+}
+main .dataTable table::-webkit-scrollbar {
+  overflow: hidden;
+}
+
+main .dataTable table th, td {
+  width: 100%;
+  border: 1px solid var(--border_clr);
+  padding: 8px;
+  text-align: center;
+  word-wrap: break-word;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* 3 */
+main .lessThanTable table {
+  table-layout: fixed;
+  width: 100%;
+  max-height: 250px; /* يمكنك تعديله حسب الحاجة */
+  overflow: auto;
+  display: block;
+  border-collapse: collapse; /* دمج حدود الخلايا */
+  border-spacing: 0;
+}
+main .lessThanTable table::-webkit-scrollbar {
+  overflow: hidden;
+}
+
+main .lessThanTable table th,
+td {
+  width: 100%;
+  border: 1px solid transparent;
+  padding: 8px;
+  text-align: center;
+  word-wrap: break-word;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.8rem;
+}
+
+.TitleAndScaleBtn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.TitleAndScaleBtn button {
+  width: 50px;
+}
+
+.canvas {
   max-width: 600px;
-  margin-top: 20px;
-  /* visibility: visible; */
+}
+
+.fullScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(255, 255, 255);
+  z-index: 998;
+}
+
+.zoomOut {
+  visibility: hidden;
+  position: fixed;
+  display: block;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  z-index: 999;
+  color: #fff;
+}
+.showCloseBtn {
+  position: fixed;
+  display: block;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  z-index: 999;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  main {
+    display: flex;
+    flex-direction: column;
+  }
+  main .data_row,
+.dataTable,
+.lessThanTable {
+    width: 100%;
+  }
 }
