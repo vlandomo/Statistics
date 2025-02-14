@@ -196,7 +196,7 @@
   <body>
     <!-- header -->
     <header>
-      <h1>مرحباً بك، هذا الموقع مختص في تحليل البيانات الإحصائية</h1>
+      <h1></h1>
     </header>
     <!-- main sction -->
     <main>
@@ -416,26 +416,39 @@
           },
         });
       }
-
+      // الجدول الثالث
       function drawLessThanTable(classes, data) {
         let tableBody = document.querySelector("#lessThanTable tbody");
         tableBody.innerHTML = "";
-
         let labels = [];
         let values = [];
 
-        classes.forEach((c) => {
+        // الحصول على عدد الأرقام المدخلة
+        let totalNumbers = data.length;
+        if (totalNumbers === 0) return; // تجنب القسمة على صفر
+
+        // إضافة فئة إضافية لجدول less than
+        let extendedClasses = [
+          ...classes,
+          { lower: classes[classes.length - 1].upper },
+        ];
+
+        extendedClasses.forEach((c, index) => {
           let countLessThan = data.filter((value) => value < c.lower).length;
 
+          // حساب النسبة التراكمية (القيمة ÷ إجمالي المدخلات)
+          let relativeFrequency = countLessThan / totalNumbers;
+
+          // عرض countLessThan في الجدول
           tableBody.innerHTML += `
-        <tr>
-            <td>${c.lower}</td>
-            <td>${countLessThan}</td>
-        </tr>
-    `;
+            <tr>
+                <td>${c.lower}</td>
+                <td>${countLessThan}</td>
+            </tr>
+        `;
 
           labels.push(c.lower);
-          values.push(countLessThan);
+          values.push(relativeFrequency); // استخدام relativeFrequency فقط في الرسم البياني
         });
 
         drawCumulativeGraph(labels, values);
@@ -445,13 +458,6 @@
         let ctx = document.getElementById("cumulativeChart").getContext("2d");
         if (cumulativeChart) cumulativeChart.destroy();
 
-        let cumulativeValues = [];
-        let cumulativeSum = 0;
-        for (let i = 0; i < values.length; i++) {
-          cumulativeSum += values[i];
-          cumulativeValues.push(cumulativeSum);
-        }
-
         cumulativeChart = new Chart(ctx, {
           type: "line",
           data: {
@@ -459,7 +465,7 @@
             datasets: [
               {
                 label: "Relative Frequency",
-                data: cumulativeValues,
+                data: values, // استخدام relativeFrequency هنا
                 borderColor: "red",
                 backgroundColor: "red",
                 fill: false,
@@ -472,10 +478,11 @@
             scales: {
               y: {
                 beginAtZero: true,
+                max: 1, // ضبط المحور ليكون بين 0 و 1
                 title: { display: true, text: "Relative Frequency" },
               },
               x: {
-                title: { display: true, text: "Lenght" },
+                title: { display: true, text: "Length" },
               },
             },
           },
