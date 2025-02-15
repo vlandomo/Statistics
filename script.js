@@ -1,6 +1,11 @@
 let histogramChart = null;
 let cumulativeChart = null;
 
+function clearData() {
+  document.getElementById("inputData").value = ""; // مسح بيانات الإدخال
+  document.getElementById("classCount").value = ""; // مسح عدد الفئات
+}
+
 function processData() {
   let data = document
     .getElementById("inputData")

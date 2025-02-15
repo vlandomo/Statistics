@@ -13,8 +13,8 @@
 }
 
 :root {
-  --main_clr: rgb(196, 233, 231);
-  --title_clr: rgb(0, 0, 0);
+  --main_clr: #c4e9e7;
+  --title_clr: #426e6e;
   --socand_clr: #ffffff;
   --table_clr: #ffffff;
   --header_clr: #94d1d1;
@@ -130,6 +130,9 @@ main h2 {
   color: var(--title_clr);
 }
 /* 1 */
+main .data_row {
+  justify-content: space-between;
+}
 main .data_row .viewStats {
   table-layout: fixed;
   width: 100%;
