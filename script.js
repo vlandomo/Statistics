@@ -377,7 +377,12 @@ function drawMoreThanTable(classes, data) {
 
     // حساب النسبة التراكمية العكسية
     let relativeFrequency = countMoreThan / totalNumbers;
-    // relativeFrequency = relativeFrequency.toFixed(3);
+    relativeFrequency = parseFloat(relativeFrequency.toFixed(2));
+
+    // تحقق إذا كانت القيمة صفر وعرضها كـ 0 فقط
+    if (relativeFrequency === 0) {
+      relativeFrequency = 0;
+    }
 
     tableBody.innerHTML += `
       <tr>
@@ -428,7 +433,7 @@ function drawMoreThanGraph(labels, values) {
   });
 }
 
-// more than 
+// more than
 let originalMoreThanData = null;
 
 function scaleCanvasThree() {
@@ -512,10 +517,9 @@ function zoomOut3(fullScreenDiv) {
   document.getElementById("moreThanChart").classList.add("canvas");
 }
 
-
-// 
+//
 function extractNumbersFromImage() {
-  const imageInput = document.getElementById('imageInput');
+  const imageInput = document.getElementById("imageInput");
   if (imageInput.files.length === 0) {
     alert("من فضلك قم بتحميل صورة تحتوي على بيانات.");
     return;
@@ -525,27 +529,30 @@ function extractNumbersFromImage() {
 
   Tesseract.recognize(
     image,
-    'eng', // لو البيانات بالعربي بدّل إلى 'ara'
+    "eng", // لو البيانات بالعربي بدّل إلى 'ara'
     {
-      logger: m => console.log(m)  // تقدم العملية
+      logger: (m) => console.log(m), // تقدم العملية
     }
-  ).then(({ data: { text } }) => {
-    console.log("النص المستخرج:", text);
+  )
+    .then(({ data: { text } }) => {
+      console.log("النص المستخرج:", text);
 
-    // استخراج الأرقام فقط (صحيحة وعشرية وسالبة)
-    let numbers = text.match(/-?\d+(\.\d+)?/g);
+      // استخراج الأرقام فقط (صحيحة وعشرية وسالبة)
+      let numbers = text.match(/-?\d+(\.\d+)?/g);
 
-    if (numbers) {
-      let numericData = numbers.map(Number);
-      console.log("الأرقام:", numericData);
+      if (numbers) {
+        let numericData = numbers.map(Number);
+        console.log("الأرقام:", numericData);
 
-      // كتابة الأرقام مباشرة في textarea الخاص بك
-      document.getElementById('inputData').value = numericData.join(' ');
-    } else {
-      document.getElementById('inputData').value = "لم يتم العثور على أرقام في الصورة.";
-    }
-  }).catch(err => {
-    console.error(err);
-    alert("حدث خطأ أثناء قراءة الصورة!");
-  });
+        // كتابة الأرقام مباشرة في textarea الخاص بك
+        document.getElementById("inputData").value = numericData.join(" ");
+      } else {
+        document.getElementById("inputData").value =
+          "لم يتم العثور على أرقام في الصورة.";
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      alert("حدث خطأ أثناء قراءة الصورة!");
+    });
 }
