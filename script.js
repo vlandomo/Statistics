@@ -305,6 +305,12 @@ function drawLessThanTable(classes, data) {
 
     // حساب النسبة التراكمية (القيمة ÷ إجمالي المدخلات)
     let relativeFrequency = countLessThan / totalNumbers;
+    relativeFrequency = parseFloat(relativeFrequency.toFixed(2));
+
+    // تحقق إذا كانت القيمة صفر وعرضها كـ 0 فقط
+    if (relativeFrequency === 0) {
+      relativeFrequency = 0;
+    }
 
     // عرض countLessThan في الجدول
     tableBody.innerHTML += `
