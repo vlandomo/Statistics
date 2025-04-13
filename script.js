@@ -377,6 +377,7 @@ function drawMoreThanTable(classes, data) {
 
     // حساب النسبة التراكمية العكسية
     let relativeFrequency = countMoreThan / totalNumbers;
+    // relativeFrequency = relativeFrequency.toFixed(3);
 
     tableBody.innerHTML += `
       <tr>
@@ -427,7 +428,7 @@ function drawMoreThanGraph(labels, values) {
   });
 }
 
-// sdddddddddddddddddddddd
+// more than 
 let originalMoreThanData = null;
 
 function scaleCanvasThree() {
