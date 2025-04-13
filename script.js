@@ -59,13 +59,19 @@ function generateTable(min, max, classWidth, classCount, data) {
       (value) => value >= lower && value <= upper
     ).length;
 
-    classes.push({ lower, upper, mark, frequency });
+
+    let Start = lower - 0.5;
+    let end = upper + 0.5;
+
+
+
+    classes.push({Start,end, lower, upper, mark, frequency });
 
     tableBody.innerHTML += `
         <tr>
-            <td>C${i + 1}</td>
-            <td>${lower}</td>
-            <td>${upper}</td>
+            <td>Class ${i + 1}</td>
+            <td>${Start} - ${end}</td>
+            <td>${lower} - ${upper}</td>
             <td>${mark}</td>
             <td>${frequency}</td>
         </tr>
@@ -322,7 +328,7 @@ function drawLessThanTable(classes, data) {
         `;
 
     labels.push(c.lower);
-    values.push(relativeFrequency); // استخدام relativeFrequency فقط في الرسم البياني
+    values.push(relativeFrequency);
   });
 
   drawCumulativeGraph(labels, values);
