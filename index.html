@@ -26,15 +26,21 @@
             rows="3"
             placeholder="Enter data as numbers separated by a space"
           ></textarea>
-
-          <h2 for="classCount">Number of classes</h2>
-          <input type="number" id="classCount" />
+          <h2>OR</h2>
+          <label for="imageInput" class="custom-file-upload"
+            ><i class="fa-solid fa-image"></i> Select image</label
+          >
           <input
             type="file"
             id="imageInput"
             accept="image/*"
             onchange="extractNumbersFromImage()"
+            style="display: none"
           />
+
+          <h2 for="classCount">Number of classes</h2>
+          <input type="number" id="classCount" />
+
           <button onclick="processData()">Analisis</button>
           <button onclick="clearData()">remove</button>
         </div>

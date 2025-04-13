@@ -18,7 +18,10 @@
   --socand_clr: #ffffff;
   --table_clr: #ffffff;
   --header_clr: #94d1d1;
-  --active_clr: #579494;
+  /* action */
+  --hover_clr: #579494;
+  --active_clr: #3a6969;
+  /* border */
   --border_clr: #fff;
 }
 
@@ -80,6 +83,11 @@ button {
   border: none;
   background-color: var(--header_clr);
   color: var(--socand_clr);
+  transition: background-color 0.3s ease, transform 0.3s ease; /* تأثير النعومة */
+}
+button:hover {
+  background-color: var(--hover_clr);
+  transform: scale(1.05); /* تغيير بسيط في الحجم */
 }
 button:active {
   background-color: var(--active_clr);
@@ -99,6 +107,24 @@ tr {
   color: var(--socand_clr);
   font-weight: 600;
   font-size: 0.8rem;
+}
+.custom-file-upload {
+  display: block;
+  margin: 10px 0;
+  padding: 8px;
+  width: 100%;
+  resize: none;
+  border-radius: 7px;
+  cursor: pointer;
+  border: none;
+  background-color: var(--header_clr);
+  color: var(--socand_clr);
+  transition: background-color 0.3s ease, transform 0.3s ease; /* تأثير النعومة */
+}
+
+.custom-file-upload:hover {
+  background-color: var(--hover_clr); /* تغيير اللون عند التمرير */
+  transform: scale(1.05); /* تغيير بسيط في الحجم */
 }
 
 /* main */
