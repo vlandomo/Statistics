@@ -328,7 +328,7 @@ function drawLessThanTable(classes, data) {
         `;
 
     labels.push(c.lower);
-    values.push(relativeFrequency);
+    values.push(relativeFrequency); 
   });
 
   drawCumulativeGraph(labels, values);

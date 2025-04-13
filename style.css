@@ -14,7 +14,7 @@
 
 :root {
   --main_clr: #c4e9e7;
-  --title_clr: #426e6e;
+  --title_clr: #6e4242;
   --socand_clr: #ffffff;
   --table_clr: #ffffff;
   --header_clr: #94d1d1;
@@ -269,7 +269,7 @@ td {
   right: 20px;
   width: 50px;
   z-index: 999;
-  color: #fff;
+  color: var(--socand_clr);
 }
 .showCloseBtn {
   position: fixed;
@@ -278,7 +278,7 @@ td {
   right: 20px;
   width: 50px;
   z-index: 999;
-  color: #fff;
+  color: var(--socand_clr);
 }
 /* 4 */
 main .moreThanTable table {
