@@ -29,9 +29,14 @@
 
           <h2 for="classCount">Number of classes</h2>
           <input type="number" id="classCount" />
-
-          <button onclick="clearData()">remove</button>
+          <input
+            type="file"
+            id="imageInput"
+            accept="image/*"
+            onchange="extractNumbersFromImage()"
+          />
           <button onclick="processData()">Analisis</button>
+          <button onclick="clearData()">remove</button>
         </div>
 
         <!-- View Stats -->
@@ -98,6 +103,8 @@
             <tr>
               <th>Less than</th>
               <th>Frequency</th>
+              <th>Relative Freq</th>
+              <!-- <th>Fr</th> -->
             </tr>
           </thead>
           <tbody></tbody>
@@ -110,14 +117,39 @@
         </div>
         <canvas id="cumulativeChart" class="canvas"></canvas>
       </section>
-
+      <!-- More Than Table -->
+      <section class="moreThanTable">
+        <h2>More than Table</h2>
+        <table id="moreThanTable">
+          <thead>
+            <tr>
+              <th>More than</th>
+              <th>Frequency</th>
+              <th>Relative Freq</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <div class="TitleAndScaleBtn">
+          <h2>More than chart</h2>
+          <button onclick="scaleCanvasThree()">
+            <i class="fa-solid fa-expand"></i>
+          </button>
+        </div>
+        <canvas id="moreThanChart" class="canvas"></canvas>
+      </section>
+      <!-- zoom out btn -->
       <button id="zoomOut1" onclick="zoomOut1()" class="zoomOut">
         <i class="fa-solid fa-down-left-and-up-right-to-center"></i>
       </button>
       <button id="zoomOut2" onclick="zoomOut2()" class="zoomOut">
         <i class="fa-solid fa-down-left-and-up-right-to-center"></i>
       </button>
+      <button id="zoomOut3" onclick="zoomOut3()" class="zoomOut">
+        <i class="fa-solid fa-down-left-and-up-right-to-center"></i>
+      </button>
     </main>
     <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@2.1.0/dist/tesseract.min.js"></script>
   </body>
 </html>

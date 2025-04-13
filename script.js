@@ -76,6 +76,7 @@ function generateTable(min, max, classWidth, classCount, data) {
 
   drawHistogram(classes);
   drawLessThanTable(classes, data);
+  drawMoreThanTable(classes, data);
 }
 
 function drawHistogram(classes) {
@@ -114,78 +115,6 @@ function drawHistogram(classes) {
         },
         x: {
           title: { display: true, text: "Lenght" },
-        },
-      },
-    },
-  });
-}
-// الجدول الثالث
-function drawLessThanTable(classes, data) {
-  let tableBody = document.querySelector("#lessThanTable tbody");
-  tableBody.innerHTML = "";
-  let labels = [];
-  let values = [];
-
-  // الحصول على عدد الأرقام المدخلة
-  let totalNumbers = data.length;
-  if (totalNumbers === 0) return; // تجنب القسمة على صفر
-
-  // إضافة فئة إضافية لجدول less than
-  let extendedClasses = [
-    ...classes,
-    { lower: classes[classes.length - 1].upper },
-  ];
-
-  extendedClasses.forEach((c, index) => {
-    let countLessThan = data.filter((value) => value < c.lower).length;
-
-    // حساب النسبة التراكمية (القيمة ÷ إجمالي المدخلات)
-    let relativeFrequency = countLessThan / totalNumbers;
-
-    // عرض countLessThan في الجدول
-    tableBody.innerHTML += `
-            <tr>
-                <td>${c.lower}</td>
-                <td>${countLessThan}</td>
-            </tr>
-        `;
-
-    labels.push(c.lower);
-    values.push(relativeFrequency); // استخدام relativeFrequency فقط في الرسم البياني
-  });
-
-  drawCumulativeGraph(labels, values);
-}
-
-function drawCumulativeGraph(labels, values) {
-  let ctx = document.getElementById("cumulativeChart").getContext("2d");
-  if (cumulativeChart) cumulativeChart.destroy();
-
-  cumulativeChart = new Chart(ctx, {
-    type: "line",
-    data: {
-      labels: labels,
-      datasets: [
-        {
-          label: "Relative Frequency",
-          data: values, // استخدام relativeFrequency هنا
-          borderColor: "red",
-          backgroundColor: "red",
-          fill: false,
-          borderWidth: 2,
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      scales: {
-        y: {
-          beginAtZero: true,
-          max: 1, // ضبط المحور ليكون بين 0 و 1
-          title: { display: true, text: "Relative Frequency" },
-        },
-        x: {
-          title: { display: true, text: "Length" },
         },
       },
     },
@@ -353,4 +282,269 @@ function zoomOut2(fullScreenDiv) {
   });
   document.getElementById("cumulativeChart").classList.remove("fullScreen");
   document.getElementById("cumulativeChart").classList.add("canvas");
+}
+// الجدول الثالث
+function drawLessThanTable(classes, data) {
+  let tableBody = document.querySelector("#lessThanTable tbody");
+  tableBody.innerHTML = "";
+  let labels = [];
+  let values = [];
+
+  // الحصول على عدد الأرقام المدخلة
+  let totalNumbers = data.length;
+  if (totalNumbers === 0) return; // تجنب القسمة على صفر
+
+  // إضافة فئة إضافية لجدول less than
+  let extendedClasses = [
+    ...classes,
+    { lower: classes[classes.length - 1].upper },
+  ];
+
+  extendedClasses.forEach((c, index) => {
+    let countLessThan = data.filter((value) => value < c.lower).length;
+
+    // حساب النسبة التراكمية (القيمة ÷ إجمالي المدخلات)
+    let relativeFrequency = countLessThan / totalNumbers;
+
+    // عرض countLessThan في الجدول
+    tableBody.innerHTML += `
+            <tr>
+                <td>${c.lower}</td>
+                <td>${countLessThan}</td>
+                <td>${relativeFrequency}</td>
+            </tr>
+        `;
+
+    labels.push(c.lower);
+    values.push(relativeFrequency); // استخدام relativeFrequency فقط في الرسم البياني
+  });
+
+  drawCumulativeGraph(labels, values);
+}
+
+function drawCumulativeGraph(labels, values) {
+  let ctx = document.getElementById("cumulativeChart").getContext("2d");
+  if (cumulativeChart) cumulativeChart.destroy();
+
+  cumulativeChart = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: "Relative Frequency",
+          data: values, // استخدام relativeFrequency هنا
+          borderColor: "red",
+          backgroundColor: "red",
+          fill: false,
+          borderWidth: 2,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: 1, // ضبط المحور ليكون بين 0 و 1
+          title: { display: true, text: "Relative Frequency" },
+        },
+        x: {
+          title: { display: true, text: "Length" },
+        },
+      },
+    },
+  });
+}
+// المخطط الرابع
+let moreThanChart = null;
+
+function drawMoreThanTable(classes, data) {
+  let tableBody = document.querySelector("#moreThanTable tbody");
+  tableBody.innerHTML = "";
+
+  let labels = [];
+  let values = [];
+
+  let totalNumbers = data.length;
+  if (totalNumbers === 0) return; // تأكيد وجود بيانات
+
+  // إضافة فئة إضافية حتى تشمل كل القيم
+  let extendedClasses = [{ upper: classes[0].lower - 1 }, ...classes];
+
+  extendedClasses.forEach((c, index) => {
+    let countMoreThan = data.filter((value) => value > c.upper).length;
+
+    // حساب النسبة التراكمية العكسية
+    let relativeFrequency = countMoreThan / totalNumbers;
+
+    tableBody.innerHTML += `
+      <tr>
+        <td>${c.upper}</td>
+        <td>${countMoreThan}</td>
+        <td>${relativeFrequency}</td>
+      </tr>
+    `;
+
+    labels.push(c.upper);
+    values.push(relativeFrequency);
+  });
+
+  drawMoreThanGraph(labels, values);
+}
+function drawMoreThanGraph(labels, values) {
+  let ctx = document.getElementById("moreThanChart").getContext("2d");
+  if (moreThanChart) moreThanChart.destroy();
+
+  moreThanChart = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: "Relative Frequency (More Than)",
+          data: values,
+          borderColor: "green",
+          backgroundColor: "green",
+          fill: false,
+          borderWidth: 2,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: 1,
+          title: { display: true, text: "Relative Frequency" },
+        },
+        x: {
+          title: { display: true, text: "Length" },
+        },
+      },
+    },
+  });
+}
+
+// sdddddddddddddddddddddd
+let originalMoreThanData = null;
+
+function scaleCanvasThree() {
+  let inputData = document.getElementById("inputData").value.trim();
+  let classCount = parseInt(document.getElementById("classCount").value);
+
+  if (inputData === "" || isNaN(classCount) || classCount < 1) {
+    alert("Enter the data first!");
+    return;
+  }
+
+  originalMoreThanData = {
+    labels: moreThanChart.data.labels,
+    datasets: moreThanChart.data.datasets,
+  };
+
+  let fullScreenDiv = document.createElement("div");
+  fullScreenDiv.classList.add("fullScreen");
+  fullScreenDiv.id = "fullScreenMoreThanChartContainer";
+
+  let closeButton = document.createElement("button");
+  closeButton.innerHTML =
+    '<i class="fa-solid fa-down-left-and-up-right-to-center"></i>';
+  closeButton.classList.add("showCloseBtn");
+  closeButton.onclick = () => zoomOut3(fullScreenDiv);
+
+  let newCanvas = document.createElement("canvas");
+  newCanvas.id = "fullScreenMoreThanChart";
+
+  fullScreenDiv.appendChild(closeButton);
+  fullScreenDiv.appendChild(newCanvas);
+  document.body.appendChild(fullScreenDiv);
+
+  let ctx = newCanvas.getContext("2d");
+  moreThanChart.destroy();
+
+  moreThanChart = new Chart(ctx, {
+    type: "line",
+    data: originalMoreThanData,
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: 1,
+          title: { display: true, text: "Relative Frequency" },
+        },
+        x: {
+          title: { display: true, text: "Length" },
+        },
+      },
+    },
+  });
+}
+function zoomOut3(fullScreenDiv) {
+  fullScreenDiv.remove();
+
+  let ctx = document.getElementById("moreThanChart").getContext("2d");
+  moreThanChart.destroy();
+
+  moreThanChart = new Chart(ctx, {
+    type: "line",
+    data: originalMoreThanData,
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: 1,
+          title: { display: true, text: "Relative Frequency" },
+        },
+        x: {
+          title: { display: true, text: "Length" },
+        },
+      },
+    },
+  });
+  document.getElementById("moreThanChart").classList.remove("fullScreen");
+  document.getElementById("moreThanChart").classList.add("canvas");
+}
+
+
+// 
+function extractNumbersFromImage() {
+  const imageInput = document.getElementById('imageInput');
+  if (imageInput.files.length === 0) {
+    alert("من فضلك قم بتحميل صورة تحتوي على بيانات.");
+    return;
+  }
+
+  const image = imageInput.files[0];
+
+  Tesseract.recognize(
+    image,
+    'eng', // لو البيانات بالعربي بدّل إلى 'ara'
+    {
+      logger: m => console.log(m)  // تقدم العملية
+    }
+  ).then(({ data: { text } }) => {
+    console.log("النص المستخرج:", text);
+
+    // استخراج الأرقام فقط (صحيحة وعشرية وسالبة)
+    let numbers = text.match(/-?\d+(\.\d+)?/g);
+
+    if (numbers) {
+      let numericData = numbers.map(Number);
+      console.log("الأرقام:", numericData);
+
+      // كتابة الأرقام مباشرة في textarea الخاص بك
+      document.getElementById('inputData').value = numericData.join(' ');
+    } else {
+      document.getElementById('inputData').value = "لم يتم العثور على أرقام في الصورة.";
+    }
+  }).catch(err => {
+    console.error(err);
+    alert("حدث خطأ أثناء قراءة الصورة!");
+  });
 }
